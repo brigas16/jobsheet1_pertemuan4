@@ -16,11 +16,40 @@ class _MyAppState extends State<MyApp> {
   final etInput = TextEditingController();
   List<String> listSatuanSuhu = ["Kelvin", "Fahrenheit", "Reamur"];
   String selectedDrowpdown = "Kelvin";
-  int hasilPerhitungan = 0;
+  double hasilPerhitungan = 0.0;
+  List<String> listHasil = [];
 
   void onDropdownChanged(Object? value) {
     return setState(() {
       selectedDrowpdown = value.toString();
+    });
+  }
+
+  void konversiSuhu() {
+    return setState(() {
+      if (etInput.text.isNotEmpty) {
+        switch (selectedDrowpdown) {
+          case "Kelvin":
+            hasilPerhitungan = int.parse(etInput.text) + 273.15;
+
+            break;
+          case "Reamur":
+            hasilPerhitungan = int.parse(etInput.text) * 4 / 5;
+
+            break;
+          case "Fahrenheit":
+            hasilPerhitungan = (int.parse(etInput.text) * 9 / 5) + 32;
+
+            break;
+        }
+
+        listHasil.add("Konversi dari" +
+            etInput.text +
+            "Celcius ke" +
+            selectedDrowpdown +
+            "Dengan Hasil : " +
+            hasilPerhitungan.toString());
+      }
     });
   }
 
@@ -78,30 +107,13 @@ class _MyAppState extends State<MyApp> {
               Row(
                 children: [
                   Expanded(
-                      child: ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              if (etInput.text.isNotEmpty) {
-                                hasilPerhitungan = int.parse(etInput.text) * 1;
-                                switch (selectedDrowpdown) {
-                                  case "Kelvin":
-                                    hasilPerhitungan =
-                                        int.parse(etInput.text) * 2;
-                                    break;
-                                  case "Reamur":
-                                    hasilPerhitungan =
-                                        int.parse(etInput.text) * 4;
-                                    break;
-                                  case "Fahrenheit":
-                                    hasilPerhitungan =
-                                        int.parse(etInput.text) * 9;
-                                    break;
-                                  default:
-                                }
-                              }
-                            });
-                          },
-                          child: Text("Konversi Suhu"))),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        konversiSuhu();
+                      },
+                      child: Text("Konversi Suhu"),
+                    ),
+                  ),
                 ],
               ),
               SizedBox(
@@ -111,6 +123,13 @@ class _MyAppState extends State<MyApp> {
                 "Riwayat Konversi",
                 style: TextStyle(fontSize: 20),
               ),
+              Expanded(
+                child: ListView.builder(
+                    itemCount: listHasil.length,
+                    itemBuilder: (context, index) {
+                      return Text(listHasil[index]);
+                    }),
+              )
             ],
           ),
         ),
