@@ -14,6 +14,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
 // This widget is the root of your application.
   final etInput = TextEditingController();
+  List<String> listSatuanSuhu = ["Kelvin", "Fahrenheit", "Reamur"];
 
   @override
   Widget build(BuildContext context) {
@@ -43,22 +44,42 @@ class _MyAppState extends State<MyApp> {
               DropdownButton(
                 isExpanded: true,
                 value: "Fahrenheit",
-                items: [
-                  DropdownMenuItem(
-                    child: Text('Kelvin'),
-                    value: 'Kelvin',
-                  ),
-                  DropdownMenuItem(
-                    child: Text('Fahrenheit'),
-                    value: 'Fahrenheit',
-                  ),
-                  DropdownMenuItem(
-                    child: Text('Reamur'),
-                    value: 'Reamur',
-                  ),
-                ],
+                items: listSatuanSuhu.map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
                 onChanged: (value) {},
-              )
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                "Hasil",
+                style: TextStyle(fontSize: 20),
+              ),
+              Text(
+                "365",
+                style: TextStyle(fontSize: 30),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                      child: ElevatedButton(
+                          onPressed: () {}, child: Text("Konversi Suhu"))),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                "Riwayat Konversi",
+                style: TextStyle(fontSize: 20),
+              ),
             ],
           ),
         ),
