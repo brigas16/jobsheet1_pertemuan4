@@ -16,6 +16,7 @@ class _MyAppState extends State<MyApp> {
   final etInput = TextEditingController();
   List<String> listSatuanSuhu = ["Kelvin", "Fahrenheit", "Reamur"];
   String selectedDrowpdown = "Kelvin";
+  int hasilPerhitungan = 0;
 
   void onDropdownChanged(Object? value) {
     return setState(() {
@@ -38,6 +39,7 @@ class _MyAppState extends State<MyApp> {
             children: [
               TextField(
                 controller: etInput,
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelText: 'Celcius',
                   hintText: 'Enter the temperature in celcius',
@@ -67,7 +69,7 @@ class _MyAppState extends State<MyApp> {
                 style: TextStyle(fontSize: 20),
               ),
               Text(
-                "365",
+                "$hasilPerhitungan",
                 style: TextStyle(fontSize: 30),
               ),
               SizedBox(
@@ -77,7 +79,29 @@ class _MyAppState extends State<MyApp> {
                 children: [
                   Expanded(
                       child: ElevatedButton(
-                          onPressed: () {}, child: Text("Konversi Suhu"))),
+                          onPressed: () {
+                            setState(() {
+                              if (etInput.text.isNotEmpty) {
+                                hasilPerhitungan = int.parse(etInput.text) * 1;
+                                switch (selectedDrowpdown) {
+                                  case "Kelvin":
+                                    hasilPerhitungan =
+                                        int.parse(etInput.text) * 2;
+                                    break;
+                                  case "Reamur":
+                                    hasilPerhitungan =
+                                        int.parse(etInput.text) * 4;
+                                    break;
+                                  case "Fahrenheit":
+                                    hasilPerhitungan =
+                                        int.parse(etInput.text) * 9;
+                                    break;
+                                  default:
+                                }
+                              }
+                            });
+                          },
+                          child: Text("Konversi Suhu"))),
                 ],
               ),
               SizedBox(
