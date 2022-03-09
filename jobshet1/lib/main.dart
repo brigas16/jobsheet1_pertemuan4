@@ -37,15 +37,24 @@ class _MyAppState extends State<MyApp> {
                   hintText: 'Enter the temperature in celcius',
                 ),
               ),
+              SizedBox(
+                height: 8,
+              ),
               DropdownButton(
+                isExpanded: true,
+                value: "Fahrenheit",
                 items: [
                   DropdownMenuItem(
-                    child: Text('Celcius'),
-                    value: 'Celcius',
+                    child: Text('Kelvin'),
+                    value: 'Kelvin',
                   ),
                   DropdownMenuItem(
                     child: Text('Fahrenheit'),
                     value: 'Fahrenheit',
+                  ),
+                  DropdownMenuItem(
+                    child: Text('Reamur'),
+                    value: 'Reamur',
                   ),
                 ],
                 onChanged: (value) {},
