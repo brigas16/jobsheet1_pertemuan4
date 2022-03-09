@@ -15,14 +15,19 @@ class _MyAppState extends State<MyApp> {
 // This widget is the root of your application.
   final etInput = TextEditingController();
   List<String> listSatuanSuhu = ["Kelvin", "Fahrenheit", "Reamur"];
+  String selectedDrowpdown = "Kelvin";
+
+  void onDropdownChanged(Object? value) {
+    return setState(() {
+      selectedDrowpdown = value.toString();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Basic Widget',
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-      ),
+      theme: ThemeData(),
       home: Scaffold(
         appBar: AppBar(
           title: const Text('widget.title'),
@@ -43,14 +48,16 @@ class _MyAppState extends State<MyApp> {
               ),
               DropdownButton(
                 isExpanded: true,
-                value: "Fahrenheit",
+                value: selectedDrowpdown,
                 items: listSatuanSuhu.map((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
                     child: Text(value),
                   );
                 }).toList(),
-                onChanged: (value) {},
+                onChanged: (value) {
+                  onDropdownChanged(value);
+                },
               ),
               SizedBox(
                 height: 10,
