@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:jobshet1/widgets/KonversiSuhu.dart';
+import 'package:jobshet1/widgets/PerhitunganTerakhir.dart';
+import 'package:jobshet1/widgets/RiwayatPerhitungan.dart';
+import 'package:jobshet1/widgets/TargetPerhitungan.dart';
+import 'package:jobshet1/widgets/inputSuhu.dart';
 
 void main() {
   runApp(const MyApp());
@@ -66,29 +71,14 @@ class _MyAppState extends State<MyApp> {
           margin: const EdgeInsets.all(8),
           child: Column(
             children: [
-              TextField(
-                controller: etInput,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  labelText: 'Celcius',
-                  hintText: 'Enter the temperature in celcius',
-                ),
-              ),
+              inputSuhu(etInput: etInput),
               SizedBox(
                 height: 8,
               ),
-              DropdownButton(
-                isExpanded: true,
-                value: selectedDrowpdown,
-                items: listSatuanSuhu.map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  onDropdownChanged(value);
-                },
+              TargetPerhitungan(
+                selectedDrowpdown: selectedDrowpdown,
+                listSatuanSuhu: listSatuanSuhu,
+                onDropdownChanged: onDropdownChanged,
               ),
               SizedBox(
                 height: 10,
@@ -97,24 +87,12 @@ class _MyAppState extends State<MyApp> {
                 "Hasil",
                 style: TextStyle(fontSize: 20),
               ),
-              Text(
-                "$hasilPerhitungan",
-                style: TextStyle(fontSize: 30),
-              ),
+              PerhitunganTerakhir(hasilPerhitungan: hasilPerhitungan),
               SizedBox(
                 height: 10,
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        konversiSuhu();
-                      },
-                      child: Text("Konversi Suhu"),
-                    ),
-                  ),
-                ],
+              KonversiSuhu(
+                onPressed: konversiSuhu,
               ),
               SizedBox(
                 height: 10,
@@ -123,13 +101,7 @@ class _MyAppState extends State<MyApp> {
                 "Riwayat Konversi",
                 style: TextStyle(fontSize: 20),
               ),
-              Expanded(
-                child: ListView.builder(
-                    itemCount: listHasil.length,
-                    itemBuilder: (context, index) {
-                      return Text(listHasil[index]);
-                    }),
-              )
+              RiwayatPerhitungan(listHasil: listHasil)
             ],
           ),
         ),
