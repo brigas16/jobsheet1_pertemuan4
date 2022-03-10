@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
 
   void Konversi(Object? value) {
     return setState(() {
-      hasilPerhitungan = value.;
+      hasilPerhitungan = konversiSuhu() as double;
     });
   }
 
