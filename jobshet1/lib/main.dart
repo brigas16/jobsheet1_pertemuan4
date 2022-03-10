@@ -30,6 +30,12 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void Konversi(Object? value) {
+    return setState(() {
+      hasilPerhitungan = value.;
+    });
+  }
+
   void konversiSuhu() {
     return setState(() {
       if (etInput.text.isNotEmpty) {
@@ -79,6 +85,7 @@ class _MyAppState extends State<MyApp> {
                 selectedDrowpdown: selectedDrowpdown,
                 listSatuanSuhu: listSatuanSuhu,
                 onDropdownChanged: onDropdownChanged,
+                Konversi: Konversi,
               ),
               SizedBox(
                 height: 10,
